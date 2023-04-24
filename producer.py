@@ -40,13 +40,10 @@ class KafkaProducer:
             print('ERROR: Message failed delivery: {}'.format(err))
         else:
             self.delivered_records += 1
-            #print("Produced record to topic {} partition [{}] @ offset {}"
-            #      .format(msg.topic(), msg.partition(), msg.offset()))
 
     def produce_data(self, topic, key, data):
         # Produce data to Kafka topic with given key
         record = json.dumps(data)
-        #print("Producing record: {}\t{}".format(key, record))
         self.producer.produce(topic, key=key, value=record, on_delivery=self.delivery_callback)
         self.producer.poll(0)
 
@@ -101,13 +98,9 @@ def send_to_kafka(data):
 
 
 def fetch_data():
-    #f_path = "trimet_data.json"
-    #f_path = check_output_file(f_path)
     data = get_api_response()
-    #create_json_file(f_path, data)
     send_to_kafka(data)
     print(f"sent total of {kproducer.delivered_records} messages")
-    #print(f"File created successfully: {f_path}")
 
 
 if __name__ == "__main__":
