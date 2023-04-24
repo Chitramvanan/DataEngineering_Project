@@ -87,6 +87,6 @@ if __name__ == '__main__':
     except KeyboardInterrupt:
         pass
     finally:
-        print('Total Recors',total_count)
+        print('Total Records',total_count)
         # Leave group and commit final offsets
         consumer.close()
